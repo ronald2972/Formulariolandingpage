@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="HarryPotterLand - Explora el mundo mágico de Hogwarts">
-<title>HarryPotterLand | Grimorio Nocturno</title>
+<title>HarryPotterLand | Mundo Mágico</title>
 
 <style>
 * {
@@ -22,73 +22,81 @@ body {
     background: #1B1F2A;
 }
 
-/* =================================
-   FONDO PRINCIPAL DE HOGWARTS
-================================= */
+/* =====================================
+   FONDO PRINCIPAL: PATRONUS ANIMADO
+===================================== */
 
 #suscripcion-harrypotter {
     min-height: 100vh;
     width: 100%;
     padding: 65px 18px;
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
     position: relative;
     isolation: isolate;
     overflow: hidden;
-
-    background-color: #101525;
-
-    background-image:
-        linear-gradient(
-            180deg,
-            rgba(10,15,30,.30),
-            rgba(15,15,28,.45),
-            rgba(20,10,20,.75)
-        ),
-        url("assets/img/hogwarts.jpg");
-
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
+    background: #101525;
 }
+
+/* El GIF se mantiene animado como fondo */
 
 #suscripcion-harrypotter::before {
     content: "";
     position: absolute;
+    inset: -4%;
+    z-index: -3;
+
+    background-image: url("./patronus.gif");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    animation: movimientoFondo 25s ease-in-out infinite alternate;
+}
+
+@keyframes movimientoFondo {
+    from {
+        transform: scale(1);
+    }
+
+    to {
+        transform: scale(1.12);
+    }
+}
+
+/* Capa oscura para mejorar la lectura */
+
+#suscripcion-harrypotter::after {
+    content: "";
+    position: absolute;
     inset: 0;
-    z-index: -1;
-    pointer-events: none;
+    z-index: -2;
 
     background:
-        radial-gradient(
-            circle at 50% 15%,
-            rgba(224,215,150,.22),
-            transparent 35%
+        linear-gradient(
+            180deg,
+            rgba(10,15,30,.45),
+            rgba(15,15,28,.60),
+            rgba(20,10,20,.88)
         ),
         radial-gradient(
-            circle at 5% 80%,
-            rgba(83,37,22,.55),
-            transparent 35%
-        ),
-        radial-gradient(
-            circle at 95% 80%,
-            rgba(53,13,21,.55),
-            transparent 35%
+            circle at 50% 20%,
+            rgba(120,190,255,.20),
+            transparent 45%
         );
 }
 
-/* =================================
+/* =====================================
    GRAN COMEDOR
-================================= */
+===================================== */
 
 .fondo-comedor {
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 220px;
+    height: 230px;
     z-index: -1;
     pointer-events: none;
 
@@ -96,26 +104,67 @@ body {
         linear-gradient(
             to top,
             rgba(12,13,23,.95),
-            rgba(12,13,23,.35),
+            rgba(12,13,23,.45),
             transparent
         ),
-        url("assets/img/gran-comedor.jpg");
+        url("./gran-comedor.png");
 
     background-size: cover;
-    background-position: center 55%;
-    opacity: .75;
+    background-position: center;
+    opacity: .65;
+
+    animation: movimientoComedor 20s ease-in-out infinite alternate;
 }
 
-/* =================================
+@keyframes movimientoComedor {
+    from {
+        background-position: 45% center;
+    }
+
+    to {
+        background-position: 55% center;
+    }
+}
+
+/* =====================================
+   VELAS DECORATIVAS
+===================================== */
+
+.velas-fondo {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    opacity: .18;
+    mix-blend-mode: screen;
+    pointer-events: none;
+    z-index: -1;
+
+    animation: movimientoVelas 15s ease-in-out infinite alternate;
+}
+
+@keyframes movimientoVelas {
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(-15px);
+    }
+}
+
+/* =====================================
    LUNA
-================================= */
+===================================== */
 
 .luna {
     position: absolute;
-    top: 6%;
+    top: 7%;
     right: 12%;
-    width: 105px;
-    height: 105px;
+    width: 90px;
+    height: 90px;
     border-radius: 50%;
     pointer-events: none;
 
@@ -128,71 +177,93 @@ body {
 
     box-shadow:
         0 0 30px #E0D796,
-        0 0 90px rgba(224,215,150,.5);
+        0 0 80px rgba(224,215,150,.5);
 
-    animation: luna 5s infinite alternate;
+    animation: lunaBrillo 5s infinite alternate;
 }
 
-@keyframes luna {
-    from { transform: scale(.95); }
-    to { transform: scale(1.08); }
-}
-
-/* =================================
-   LECHUZA DECORATIVA
-================================= */
-
-.lechuza {
-    position: absolute;
-    top: 15%;
-    left: 5%;
-    width: 125px;
-    height: 125px;
-    object-fit: contain;
-    opacity: .9;
-    pointer-events: none;
-    animation: vuelo 5s ease-in-out infinite alternate;
-}
-
-@keyframes vuelo {
+@keyframes lunaBrillo {
     from {
-        transform: translateY(0) rotate(-5deg);
+        transform: scale(.95);
+        box-shadow: 0 0 25px #E0D796;
     }
+
     to {
-        transform: translateY(-25px) rotate(5deg);
+        transform: scale(1.08);
+        box-shadow: 0 0 55px #E0D796;
     }
 }
 
-/* =================================
-   VELAS FLOTANTES
-================================= */
+/* =====================================
+   LECHUZA VOLANDO
+===================================== */
 
-.velas {
+.lechuza-volando {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: .55;
+    top: 13%;
+    left: 5%;
+    width: 115px;
+    height: 115px;
+    object-fit: contain;
     pointer-events: none;
-    z-index: -1;
+
+    animation: vueloLechuza 7s ease-in-out infinite alternate;
 }
 
-/* =================================
+@keyframes vueloLechuza {
+    0% {
+        transform: translate(0,0) rotate(-5deg);
+    }
+
+    50% {
+        transform: translate(20px,-25px) rotate(5deg);
+    }
+
+    100% {
+        transform: translate(35px,-5px) rotate(-3deg);
+    }
+}
+
+/* =====================================
+   ESTRELLAS
+===================================== */
+
+.estrella {
+    position: absolute;
+    color: #E0D796;
+    font-size: 25px;
+    text-shadow: 0 0 15px #E0D796;
+    pointer-events: none;
+
+    animation: brillar 3s infinite alternate;
+}
+
+@keyframes brillar {
+    from {
+        opacity: .3;
+        transform: scale(.7);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1.3) rotate(45deg);
+    }
+}
+
+/* =====================================
    PARTICULAS MAGICAS
-================================= */
+===================================== */
 
 .particula {
     position: absolute;
     width: 5px;
     height: 5px;
-    background: #F8E8A0;
     border-radius: 50%;
+    background: #F8E8A0;
     box-shadow: 0 0 12px #E0D796;
     pointer-events: none;
 
-    animation: flotar 8s linear infinite;
+    animation: flotar 9s linear infinite;
 }
 
 @keyframes flotar {
@@ -200,40 +271,20 @@ body {
         transform: translateY(100px) scale(.5);
         opacity: 0;
     }
-    30% { opacity: 1; }
+
+    30% {
+        opacity: 1;
+    }
+
     100% {
-        transform: translateY(-600px) scale(1.5);
+        transform: translateY(-700px) scale(1.5);
         opacity: 0;
     }
 }
 
-/* =================================
-   ESTRELLAS
-================================= */
-
-.estrella {
-    position: absolute;
-    color: #E0D796;
-    font-size: 27px;
-    text-shadow: 0 0 15px #E0D796;
-    pointer-events: none;
-    animation: brillar 3s infinite alternate;
-}
-
-@keyframes brillar {
-    from {
-        opacity: .25;
-        transform: scale(.7) rotate(0deg);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1.3) rotate(45deg);
-    }
-}
-
-/* =================================
+/* =====================================
    PANEL PRINCIPAL
-================================= */
+===================================== */
 
 .panel-magico {
     width: 100%;
@@ -245,8 +296,8 @@ body {
 
     background: linear-gradient(
         145deg,
-        rgba(27,31,42,.97),
-        rgba(53,13,21,.97)
+        rgba(27,31,42,.96),
+        rgba(53,13,21,.96)
     );
 
     border: 2px solid #CBA799;
@@ -276,9 +327,9 @@ body {
     right: 18px;
 }
 
-/* =================================
+/* =====================================
    LOGO
-================================= */
+===================================== */
 
 .contenedor-logo {
     width: 145px;
@@ -290,8 +341,8 @@ body {
     border-radius: 50%;
 
     background: radial-gradient(circle,#532516,#1B1F2A);
-    box-shadow: 0 0 25px rgba(224,215,150,.35);
 
+    box-shadow: 0 0 25px rgba(224,215,150,.35);
     overflow: hidden;
     transition: .4s;
 }
@@ -307,15 +358,9 @@ body {
     object-fit: contain;
 }
 
-.logo-fallback {
-    display: none;
-    color: #E0D796;
-    padding-top: 30px;
-}
-
-/* =================================
-   TITULOS
-================================= */
+/* =====================================
+   TITULOS Y TEXTOS
+===================================== */
 
 .titulo {
     color: #E0D796;
@@ -345,14 +390,14 @@ body {
     margin: 20px;
 }
 
-/* =================================
-   GALERIA DE GIFS
-================================= */
+/* =====================================
+   GALERIA
+===================================== */
 
 .galeria-magica {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 14px;
+    gap: 15px;
     margin: 28px 0;
 }
 
@@ -361,31 +406,37 @@ body {
     border: 1px solid #CBA799;
     border-radius: 13px;
     background: #350D15;
-    transition: .35s;
+    transition: .4s;
 }
 
 .gif-card:hover {
-    transform: translateY(-6px) scale(1.025);
+    transform: translateY(-7px);
     box-shadow: 0 0 22px rgba(224,215,150,.4);
 }
 
-.gif-card iframe {
-    display: block;
+.gif-imagen {
     width: 100%;
-    height: 145px;
-    border: 0;
+    height: 180px;
+    display: block;
+    object-fit: cover;
+    object-position: center;
+    transition: transform .7s ease;
+}
+
+.gif-card:hover .gif-imagen {
+    transform: scale(1.08);
 }
 
 .gif-titulo {
     color: #E0D796;
-    font-size: 12px;
-    padding: 10px;
+    font-size: 13px;
+    padding: 12px 8px;
     margin: 0;
 }
 
-/* =================================
+/* =====================================
    BENEFICIOS
-================================= */
+===================================== */
 
 .beneficios {
     display: grid;
@@ -421,9 +472,9 @@ body {
     font-size: 13px;
 }
 
-/* =================================
+/* =====================================
    FORMULARIO
-================================= */
+===================================== */
 
 .formulario {
     max-width: 440px;
@@ -488,9 +539,57 @@ body {
     line-height: 1.7;
 }
 
-/* =================================
+/* =====================================
+   BOTON DE MUSICA
+===================================== */
+
+.boton-musica {
+    position: fixed;
+    right: 22px;
+    bottom: 22px;
+    z-index: 50;
+
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    padding: 13px 18px;
+    border: 1px solid #E0D796;
+    border-radius: 30px;
+
+    background: rgba(27,31,42,.95);
+    color: #E0D796;
+
+    font-family: Georgia,serif;
+    font-size: 13px;
+    cursor: pointer;
+
+    box-shadow: 0 0 20px rgba(224,215,150,.25);
+    transition: .3s;
+}
+
+.boton-musica:hover {
+    transform: scale(1.07);
+    background: #350D15;
+}
+
+.boton-musica.reproduciendo {
+    animation: pulsoMusica 2s infinite;
+}
+
+@keyframes pulsoMusica {
+    0%,100% {
+        box-shadow: 0 0 10px rgba(224,215,150,.2);
+    }
+
+    50% {
+        box-shadow: 0 0 25px rgba(224,215,150,.7);
+    }
+}
+
+/* =====================================
    FOOTER
-================================= */
+===================================== */
 
 .footer {
     border-top: 1px solid rgba(203,167,153,.5);
@@ -510,9 +609,9 @@ body {
     letter-spacing: 8px;
 }
 
-/* =================================
-   MODAL DE SUSCRIPCION EXITOSA
-================================= */
+/* =====================================
+   MODAL DE EXITO
+===================================== */
 
 .modal {
     display: none;
@@ -558,6 +657,7 @@ body {
         transform: translateY(35px) scale(.85);
         opacity: 0;
     }
+
     to {
         transform: translateY(0) scale(1);
         opacity: 1;
@@ -566,12 +666,7 @@ body {
 
 .modal-icono {
     font-size: 55px;
-    animation: volar 2s infinite alternate;
-}
-
-@keyframes volar {
-    from { transform: translateY(0) rotate(-5deg); }
-    to { transform: translateY(-10px) rotate(5deg); }
+    animation: vueloLechuza 2s infinite alternate;
 }
 
 .modal-contenido h2 {
@@ -622,13 +717,12 @@ body {
     cursor: pointer;
 }
 
-/* =================================
+/* =====================================
    RESPONSIVE
-================================= */
+===================================== */
 
 @media(max-width:768px) {
     #suscripcion-harrypotter {
-        background-attachment: scroll;
         padding: 35px 12px;
     }
 
@@ -636,7 +730,7 @@ body {
         height: 130px;
     }
 
-    .lechuza {
+    .lechuza-volando {
         width: 75px;
         height: 75px;
     }
@@ -664,8 +758,8 @@ body {
         gap: 9px;
     }
 
-    .gif-card iframe {
-        height: 105px;
+    .gif-imagen {
+        height: 125px;
     }
 
     .beneficio {
@@ -678,6 +772,12 @@ body {
 
     .descripcion {
         font-size: 14px;
+    }
+
+    .boton-musica {
+        right: 12px;
+        bottom: 12px;
+        padding: 11px 14px;
     }
 
     .modal-contenido {
@@ -709,25 +809,25 @@ body {
 
     <div class="fondo-comedor"></div>
 
+    <!-- VELAS -->
+
+    <img
+        src="./velas2.webp"
+        class="velas-fondo"
+        alt=""
+        aria-hidden="true"
+    >
+
     <!-- LUNA -->
 
     <div class="luna"></div>
 
-    <!-- LECHUZA DECORATIVA -->
+    <!-- LECHUZA -->
 
     <img
-        class="lechuza"
-        src="hedwigg.jpg"
-        alt="Lechuza volando"
-    >
-
-    <!-- VELAS FLOTANTES -->
-
-    <img
-        class="velas"
-        src="velas2.webp"
-        alt=""
-        aria-hidden="true"
+        src="./hedwigg.jpg"
+        class="lechuza-volando"
+        alt="Lechuza Hedwig"
     >
 
     <!-- ESTRELLAS -->
@@ -750,23 +850,13 @@ body {
 
     <div class="panel-magico">
 
-        <!-- SECCION 1: LOGO -->
+        <!-- LOGO -->
 
         <div class="contenedor-logo">
-
-            <img
-                src="logo.jpg"
-                alt="Logo HarryPotterLand"
-                onerror="this.style.display='none';this.nextElementSibling.style.display='block';"
-            >
-
-            <span class="logo-fallback">
-                ✧<br>HARRYPOTTERLAND<br>✧
-            </span>
-
+            <img src="./logo.jpg" alt="Logo HarryPotterLand">
         </div>
 
-        <!-- SECCION 2: SALUDO -->
+        <!-- SALUDO -->
 
         <h1 class="titulo">
             Bienvenido al Grimorio Nocturno
@@ -787,18 +877,18 @@ body {
             ¡El mundo mágico te espera!
         </p>
 
-        <!-- GALERIA DE GIFS -->
+        <!-- GALERIA -->
 
         <div class="galeria-magica">
 
             <div class="gif-card">
 
-                <iframe
-                    src="hedwig.png"
-                    title="Lechuza mágica"
+                <img
+                    class="gif-imagen"
+                    src="./hedwigg.jpg"
+                    alt="Lechuza Hedwig"
                     loading="lazy"
-                    allowfullscreen>
-                </iframe>
+                >
 
                 <p class="gif-titulo">
                     🦉 Mensaje de una lechuza
@@ -808,12 +898,12 @@ body {
 
             <div class="gif-card">
 
-                <iframe
-                    src="hogwarts.png"
-                    title="Castillo de Hogwarts"
+                <img
+                    class="gif-imagen"
+                    src="./hogwarts.png"
+                    alt="Castillo de Hogwarts"
                     loading="lazy"
-                    allowfullscreen>
-                </iframe>
+                >
 
                 <p class="gif-titulo">
                     🏰 El castillo de Hogwarts
@@ -823,7 +913,7 @@ body {
 
         </div>
 
-        <!-- SECCION 3: CONTENIDO -->
+        <!-- BENEFICIOS -->
 
         <h2 style="color:#E0D796;font-size:21px;">
             Explora todo lo que te espera
@@ -853,7 +943,7 @@ body {
 
         </div>
 
-        <!-- SECCION 4: FORMULARIO Y CTA -->
+        <!-- FORMULARIO -->
 
         <h2 style="color:#E0D796;font-size:22px;">
             Recibe tu carta de admisión
@@ -882,7 +972,7 @@ body {
 
         <p id="mensaje-suscripcion" role="status" aria-live="polite"></p>
 
-        <!-- SECCION 5: FOOTER -->
+        <!-- FOOTER -->
 
         <footer class="footer">
 
@@ -909,9 +999,31 @@ body {
 </section>
 
 
-<!-- =================================
-     VENTANA DE SUSCRIPCION EXITOSA
-================================= -->
+<!-- =====================================
+     MUSICA REAL MP3
+===================================== -->
+
+<audio
+    id="musica-fondo"
+    src="./harry-potter-tono-llamada.mp3"
+    loop
+    preload="auto">
+</audio>
+
+<button
+    type="button"
+    id="boton-musica"
+    class="boton-musica"
+    aria-pressed="false"
+>
+    <span id="icono-musica">♫</span>
+    <span id="texto-musica">Activar música</span>
+</button>
+
+
+<!-- =====================================
+     MODAL DE EXITO
+===================================== -->
 
 <div
     class="modal"
@@ -972,9 +1084,9 @@ body {
 </div>
 
 
-<!-- =================================
+<!-- =====================================
      EMAILJS
-================================= -->
+===================================== -->
 
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
@@ -985,13 +1097,8 @@ body {
 // =====================================
 
 emailjs.init({
-    publicKey: "TU_PUBLIC_KEY"
+    publicKey: "vyVN2JiQoPJGBw7_w"
 });
-
-
-// =====================================
-// ELEMENTOS DEL FORMULARIO
-// =====================================
 
 const formulario = document.getElementById("form-suscripcion");
 const boton = document.getElementById("btn-suscribir");
@@ -1003,7 +1110,7 @@ const correoConfirmacion = document.getElementById("correo-confirmacion");
 
 
 // =====================================
-// ENVIAR SUSCRIPCION
+// ENVIO DE SUSCRIPCION
 // =====================================
 
 formulario.addEventListener("submit", async function(event) {
@@ -1025,8 +1132,8 @@ formulario.addEventListener("submit", async function(event) {
     try {
 
         const respuesta = await emailjs.send(
-            "TU_SERVICE_ID",
-            "TU_TEMPLATE_ID",
+            "service_y0m0woj",
+            "template_w2mn7o3",
             {
                 to_email: correo,
                 user_email: correo,
@@ -1039,7 +1146,6 @@ formulario.addEventListener("submit", async function(event) {
         formulario.reset();
 
         correoConfirmacion.textContent = correo;
-
         modal.classList.add("activo");
 
         cerrarModal.focus();
@@ -1049,8 +1155,7 @@ formulario.addEventListener("submit", async function(event) {
         console.error("ERROR EMAILJS:", error);
 
         mensaje.textContent =
-            "No fue posible enviar tu suscripción. " +
-            (error.text || error.message || "Inténtalo nuevamente.");
+            "No fue posible enviar tu suscripción. Inténtalo nuevamente.";
 
         mensaje.style.color = "#FF9999";
 
@@ -1065,7 +1170,7 @@ formulario.addEventListener("submit", async function(event) {
 
 
 // =====================================
-// CERRAR VENTANA
+// CERRAR MODAL
 // =====================================
 
 function cerrarVentana() {
@@ -1088,6 +1193,74 @@ document.addEventListener("keydown", function(event) {
     ) {
         cerrarVentana();
     }
+
+});
+
+
+// =====================================
+// REPRODUCCION DE MUSICA MP3
+// =====================================
+
+const musica = document.getElementById("musica-fondo");
+const botonMusica = document.getElementById("boton-musica");
+const textoMusica = document.getElementById("texto-musica");
+const iconoMusica = document.getElementById("icono-musica");
+
+// Volumen inicial del 25 %
+musica.volume = 0.25;
+
+botonMusica.addEventListener("click", async function() {
+
+    if (musica.paused) {
+
+        try {
+
+            await musica.play();
+
+            textoMusica.textContent = "Pausar música";
+            iconoMusica.textContent = "♫";
+
+            botonMusica.classList.add("reproduciendo");
+            botonMusica.setAttribute("aria-pressed", "true");
+
+        } catch(error) {
+
+            console.error("Error al reproducir MP3:", error);
+
+            textoMusica.textContent = "Error al reproducir";
+
+            alert(
+                "No se pudo reproducir la música. " +
+                "Comprueba que el archivo harry-potter-tono-llamada.mp3 " +
+                "esté en la misma carpeta que index.html."
+            );
+
+        }
+
+    } else {
+
+        musica.pause();
+
+        textoMusica.textContent = "Activar música";
+        iconoMusica.textContent = "♫";
+
+        botonMusica.classList.remove("reproduciendo");
+        botonMusica.setAttribute("aria-pressed", "false");
+
+    }
+
+});
+
+// Actualizar el botón si la reproducción termina o falla
+
+musica.addEventListener("error", function() {
+
+    console.error("No se pudo cargar el archivo de música.");
+
+    textoMusica.textContent = "Audio no disponible";
+
+    botonMusica.classList.remove("reproduciendo");
+    botonMusica.setAttribute("aria-pressed", "false");
 
 });
 
